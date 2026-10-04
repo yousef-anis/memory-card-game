@@ -1,0 +1,231 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Nunito", sans-serif;
+  background-color: #f1f5f9;
+  overflow-x: hidden;
+}
+
+/* ==================== Control Button ==================== */
+
+.control-button {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background-color: rgba(3, 169, 244, 0.9);
+}
+
+.control-button span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  background-color: #f44336;
+  padding: 12px 24px;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition:
+    transform 0.3s,
+    background-color 0.3s;
+}
+
+@media (hover: hover) {
+  .control-button span:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    background-color: #d32f2f;
+  }
+}
+
+/* ==================== Title ==================== */
+
+h1 {
+  text-align: center;
+  font-size: 36px;
+  font-weight: 800;
+  background: linear-gradient(
+    90deg,
+    #1565c0,
+    #2196f3,
+    #03a9f4,
+    #2196f3,
+    #1565c0
+  );
+  background-size: 300% 100%;
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 4s ease-in-out infinite;
+}
+
+@keyframes gradientMove {
+  from {
+    background-position: 0% 50%;
+  }
+
+  to {
+    background-position: 300% 50%;
+  }
+}
+
+/* ==================== Info Container ==================== */
+
+.info-container {
+  width: calc(100% - 32px);
+  max-width: 900px;
+  margin: 16px auto;
+  padding: 16px;
+  display: flex;
+  background-color: #f6f6f6;
+  font-size: 20px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.info-container .name {
+  width: 50%;
+}
+
+.info-container .tries {
+  width: 50%;
+  text-align: right;
+}
+
+/* ==================== Memory Game ==================== */
+
+.memory-game-blocks {
+  display: flex;
+  width: calc(100% - 32px);
+  max-width: 920px;
+  flex-wrap: wrap;
+  margin: 16px auto;
+}
+
+.memory-game-blocks.no-clicking {
+  pointer-events: none;
+}
+
+.memory-game-blocks .game-block {
+  height: 165px;
+  position: relative;
+  flex: 1 0 calc(20% - 16px);
+  margin: 0 8px 16px;
+  cursor: pointer;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+.memory-game-blocks .game-block .front {
+  background-color: #333;
+  line-height: 165px;
+}
+
+.memory-game-blocks .game-block .front::before {
+  content: "?";
+  color: white;
+  font-size: 115px;
+  font-weight: bold;
+  transition: transform 0.3s;
+}
+
+.memory-game-blocks .game-block .back {
+  background-color: #607d8b;
+  transform: rotateY(180deg);
+  overflow: hidden;
+}
+
+.memory-game-blocks .game-block .back img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.memory-game-blocks .game-block .face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  border: 3px solid #2196f3;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.memory-game-blocks .game-block.is-flipped,
+.memory-game-blocks .game-block.has-match {
+  transform: rotateY(180deg);
+  pointer-events: none;
+}
+
+/* ==================== Tablet ==================== */
+
+@media (max-width: 992px) {
+  .memory-game-blocks .game-block {
+    flex-basis: calc(25% - 16px);
+    height: 150px;
+  }
+
+  .memory-game-blocks .game-block .front {
+    line-height: 150px;
+  }
+
+  .memory-game-blocks .game-block .front::before {
+    font-size: 95px;
+  }
+}
+
+/* ==================== Mobile ==================== */
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 28px;
+  }
+
+  .info-container {
+    width: calc(100% - 16px);
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .memory-game-blocks {
+    width: calc(100% - 16px);
+  }
+
+  .memory-game-blocks .game-block {
+    flex-basis: calc(25% - 8px);
+    height: 80px;
+    margin: 0 4px 8px;
+  }
+
+  .memory-game-blocks .game-block .front {
+    line-height: 80px;
+  }
+
+  .memory-game-blocks .game-block .front::before {
+    font-size: 48px;
+  }
+
+  .memory-game-blocks .game-block .face {
+    border-width: 2px;
+    border-radius: 6px;
+  }
+
+  .control-button span {
+    font-size: 18px;
+    padding: 10px 16px;
+  }
+}
